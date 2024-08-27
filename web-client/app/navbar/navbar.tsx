@@ -1,5 +1,6 @@
 'use client';
 import SignIn from "./signIn";
+import Upload from "./upload"
 import Link from "next/link";
 import Image from "next/image";
 
@@ -28,6 +29,9 @@ function NavBar() {
         <Image width={160} height={90} style={{borderRadius:'10px'}}
           src="/SwingVisionImage.jpg" alt="Logo"/>
       </Link>
+      { 
+        user && <Upload />
+      }
       <SignIn user={user} />
     </nav>
   );

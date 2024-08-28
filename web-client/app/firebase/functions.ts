@@ -7,7 +7,7 @@ const generateUploadUrlFunction = httpsCallable(functions, 'generateUploadUrl');
 export async function uploadVideo(file: File) {
   const response: any = await generateUploadUrlFunction({
     fileExtension: file.name.split('.').slice(-1),
-    fileName: file.name.split('.').slice(0,-1)
+    fileName: file.name.split('.').slice(0,-1),
   });
 
   const url = response?.data?.url

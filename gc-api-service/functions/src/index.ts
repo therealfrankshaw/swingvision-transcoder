@@ -34,11 +34,11 @@ export const generateUploadUrl = onCall({maxInstances: 1}, async (request) => {
       "The function must be called while authenticated."
     );
   }
-
+  const auth = request.auth
   const data = request.data;
   const bucket = storage.bucket(origVideoBucketName);
 
-  const uniqFileName = `${data.fileName}-${Date.now()}.${data.fileExtension}`;
+  const uniqFileName = `${data.fileName}-${Date.now()}-${auth.uid}.${data.fileExtension}`;
 
   // generate signed url to allow user to upload video for 15 mins.
   const [url] = await bucket.file(uniqFileName).getSignedUrl({

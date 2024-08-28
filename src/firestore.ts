@@ -26,6 +26,11 @@ export function setVideo(videoId: string, video: Video) {
     .collection(videoCollectionId)
     .doc(videoId)
     .set(video, { merge: true })
+    .then(() => console.log('Video document successfully written!'))
+    .catch((error) => {
+      console.error('Error writing video document:', error);
+      throw error;  
+    });
 }
 
 export async function isVideoNew(videoId: string) {

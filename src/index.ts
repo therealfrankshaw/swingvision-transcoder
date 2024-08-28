@@ -22,6 +22,9 @@ app.post('/process-video', async (req, res) => {
   // Get the bucket and filename from the Cloud Pub/Sub message
   let data;
   try {
+    // the request structure comes GCS to pubsub. Reminder that logging 
+    // the req.body.message.data allows you to see attributes
+
     const message = Buffer.from(req.body.message.data, 'base64').toString('utf8');
     data = JSON.parse(message);
     
@@ -32,13 +35,13 @@ app.post('/process-video', async (req, res) => {
     console.error(error);
     return res.status(400).send('Bad Request: missing filename.');
   }
-
+  
   const inputFileName = data.name;
-  const fileName = inputFileName.split('.').slice(0,-1)
-  const extension = inputFileName.split('.').slice(-1)
+  const fileName = inputFileName.split('.').slice(0,-1).join('')
+  const extension = inputFileName.split('.').pop()
   const outputFileName = `${fileName}-processed.${extension}`;
 
-  if (!isVideoNew(fileName)) {
+  if (!await isVideoNew(fileName)) {
     return res.status(400).send('Bad Request: Video already processing or processed.');
   } else {
     await setVideo(fileName, {

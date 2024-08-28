@@ -1,6 +1,6 @@
 'use client';
 
-import { signInWithGoogle, signOut } from '../utils/firebase/firebase';
+import { signInWithGoogle, signOut } from '../firebase/firebase';
 import styles from './signIn.module.css';
 import { User } from 'firebase/auth';
 

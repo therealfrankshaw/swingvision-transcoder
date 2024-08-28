@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import styles from "./navbar.module.css";
 import { useEffect, useState } from "react";
-import { onAuthStateChangedHelper } from "../utils/firebase/firebase";
+import { onAuthStateChangedHelper } from "../firebase/firebase";
 import { User } from "firebase/auth";
 
 

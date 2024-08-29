@@ -53,8 +53,18 @@ export const generateUploadUrl = onCall({maxInstances: 1}, async (request) => {
 });
 
 
-export const getVideos = onCall({maxInstances: 1}, async () => {
+export const getVideos = onCall({maxInstances: 1}, async (request) => {
+  if (!request.auth) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "The function must be called while authenticated."
+    );
+  }
+
   const querySnapshot =
-    await firestore.collection("videos").limit(10).get();
+    await firestore
+      .collection("videos")
+      .where("uid", "==", request.auth.uid)
+      .get();
   return querySnapshot.docs.map((doc) => doc.data());
 });

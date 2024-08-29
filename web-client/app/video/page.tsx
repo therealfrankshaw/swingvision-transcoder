@@ -9,6 +9,7 @@ export default function Video() {
   return (
     <div>
       <h1>Video</h1>
+      <p> videoSrc: {videoSrc} </p>
       { <video controls src={videoPrefix + videoSrc}/> }
     </div>
   );

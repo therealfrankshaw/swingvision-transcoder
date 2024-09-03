@@ -4,8 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { onAuthStateChangedHelper } from "./firebase/firebase";
 import { User } from "firebase/auth";
-import { getVideos } from './firebase/functions'
-import { useState, useEffect } from 'react'
+import { getVideos } from './firebase/functions';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [videos, setVideos] = useState([]);
@@ -33,22 +33,24 @@ export default function Home() {
     }
   }, [user]);
 
-
-
   return (
-    <main className={styles.main}>
-      <h1>Your Videos</h1>
+    <main className={`${styles.main} ${styles.globalWrapper}`}>
+      <div className={styles.titleContainer}>
+        <h1 className={styles.title}>Your Videos</h1>
+      </div>
+      <div className={styles.videoGrid}>
       {
-        videos.map((video:any) => (
-          <div key={video.id}>
-            <p> videoSrc: {video.filename} </p>
+        videos.map((video: any) => (
+          <div className={styles.videoContainer} key={video.id}>
+            <p>videoSrc: {video.filename}</p>
             <Link href={`/video?vid=${video.filename}`}>
-              <Image src={'/thumbnail.png'} alt='video' width={120} height={80}
-                className={styles.thumbnail}/>
+              <Image src={'/thumbnail.gif'} alt='video' width={120} height={80}
+                className={styles.thumbnail} />
             </Link>
           </div>
         ))
       }
+      </div>
     </main>
   );
 }

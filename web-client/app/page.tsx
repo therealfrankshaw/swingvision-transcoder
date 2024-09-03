@@ -40,13 +40,13 @@ export default function Home() {
       <h1>Your Videos</h1>
       {
         videos.map((video:any) => (
-          <>
+          <div key={video.id}>
             <p> videoSrc: {video.filename} </p>
             <Link href={`/video?vid=${video.filename}`}>
               <Image src={'/thumbnail.png'} alt='video' width={120} height={80}
                 className={styles.thumbnail}/>
             </Link>
-          </>
+          </div>
         ))
       }
     </main>
